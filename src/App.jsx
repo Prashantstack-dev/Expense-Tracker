@@ -7,12 +7,13 @@ import { ExpenseProvider } from "./context/ExpenseContext.jsx";
 
 
 
+
 function App() {
   return (
     <>
     {/* ExpenseProvider is a custom hook made using createContext */}
       <ExpenseProvider>   
-        <Navbar />
+        {/* <Navbar /> */}
         <Dashboard />
         <Footer />
       </ExpenseProvider>

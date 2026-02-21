@@ -13,16 +13,20 @@ const ExpenseContext = createContext();  //create a board
 
 export function ExpenseProvider({children}){
     const [expenses, setExpenses] = useState([]);
+
+    function addExpense(expense){
+        setExpenses([...expenses, expense]);
+    }
     
 
   return (
     //Mount the board to wall and pin data as a children props
-    <ExpenseContext.Provider value={{expenses}}>
-        {children}
+    <ExpenseContext.Provider value={{expenses, addExpense}}>
+        {children} 
     </ExpenseContext.Provider>
   )
 }
 
-export function useExpense(){
+export function useExpenses(){
 return useContext(ExpenseContext);
 }
