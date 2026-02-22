@@ -9,7 +9,9 @@ const ExpenseForm = () => {
     amount: "",
     date: ""
   });
-  const { addExpense } = useExpenses();
+
+//  const everything = useExpenses() const addExpense = everything.addExpense, destructuring everything inside addExpense
+const { addExpense } = useExpenses();
 
   //form handle default behaviour
   const handleSubmit = (e) => {
@@ -17,7 +19,7 @@ const ExpenseForm = () => {
 
     //sending the context to the form through custom hooks
     addExpense(form);
-    alert(`Sumbitting Title: ${form.title}`);
+    // alert(`Sumbitting Title: ${form.title}`);
     //clear form after submitting
     setForm({
       title: "",
@@ -32,6 +34,7 @@ const ExpenseForm = () => {
     console.log(e);
     return setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
 
   return (
     <div>
