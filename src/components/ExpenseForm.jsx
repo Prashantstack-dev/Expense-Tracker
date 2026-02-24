@@ -59,8 +59,8 @@ const navigate = useNavigate();
           placeholder='category'
           onChange={handleChange}
         >
-          <option>Snacks</option>
-          <option>Vegetable</option>
+          <option>Food</option>
+          <option>Transport</option>
           <option>Electricity</option>
           <option>Internet</option>
         </select>

@@ -28,7 +28,14 @@ export function ExpenseProvider({children}){
     
     //expense is just a parameter
     function addExpense(expense){
-        setExpenses([...expenses, {...expense, id:Date.now()}]);
+        setExpenses([
+          ...expenses,  //copy old array
+           {            //add one new object
+            ...expense, //copy expense object
+           amount: parseFloat(expense.amount), //override amount
+           id:Date.now()  //add id
+          }
+        ]);
     }
     
     function deleteExpense(id){
