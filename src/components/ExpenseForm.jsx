@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useExpenses } from "../context/ExpenseContext.jsx";
+import {useNavigate} from "react-router-dom";
+
 
 const ExpenseForm = () => {
   const [form, setForm] = useState({
@@ -13,6 +15,7 @@ const ExpenseForm = () => {
 //  const everything = useExpenses() const addExpense = everything.addExpense, destructuring everything inside addExpense
 const { addExpense } = useExpenses();
 
+const navigate = useNavigate();
   //form handle default behaviour
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +30,9 @@ const { addExpense } = useExpenses();
       amount: "",
       date: ""
     });
+
+    //navigate to history
+    navigate('/history');
   };
 
   //updating as per the user input for title to setForm
@@ -48,7 +54,6 @@ const { addExpense } = useExpenses();
           onChange={handleChange}
         ></input>
         <select
-          type='text'
           name='category'
           value={form.category}
           placeholder='category'

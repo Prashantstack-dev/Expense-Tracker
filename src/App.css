@@ -1,6 +1,18 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body, html {
     min-height: 100vh;    
     /* page can scroll if needed */
+  }
+
+  body {
+  font-family: system-ui, sans-serif;
+  background: #f9f9f9;
+  color: #222;
 }
 
 #navbar ul{
@@ -57,17 +69,6 @@ body, html {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-}
-
-.container button.Btn {
-  padding: 12px 24px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.2s;
 }
 
 .container button.Btn {
