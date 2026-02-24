@@ -7,7 +7,10 @@ import Footer from "./pages/Footer.jsx";
 import { ExpenseProvider } from "./context/ExpenseContext.jsx";
 
 import { ThemeProvider, useTheme } from "./practice/ThemeContext.jsx";
-import ThemeApp from "./practice/ThemeApp";
+import { Routes,Route } from "react-router-dom";
+
+import AddExpense from "./pages/AddExpense.jsx";
+import History from "./pages/History.jsx";
 
 
 
@@ -15,8 +18,13 @@ function AppContent() {
   const { theme, toogleTheme } = useTheme();
   return (
     <div style={{ background: theme === 'dark' ? '#0d1117' : '#fafafa', minHeight: '100vh' }}>
+
       <Navbar />
-      <Dashboard />
+      <Routes>
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/add" element={<AddExpense/>} />
+        <Route path="/history" element={<History/>} />
+      </Routes>
       <Footer />
     </div>
   );
