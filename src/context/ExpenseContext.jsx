@@ -12,6 +12,7 @@ const ExpenseContext = createContext();  //create a board
 
 
 export function ExpenseProvider({children}){
+
     const [expenses, setExpenses] = useState(()=> {
      const storedData = localStorage.getItem('expenses');
      if(storedData) return JSON.parse(storedData)
@@ -21,9 +22,24 @@ export function ExpenseProvider({children}){
     useEffect(() => {
       //save expenses to local storage here
        localStorage.setItem("expenses", JSON.stringify(expenses))
-    
-     
+  
     }, [expenses])
+
+    const[budget, setBudget] = useState(()=> {
+      const savedBudget = localStorage.getItem('budget');
+      //if value is found parse it(localStorage uses string) and use it
+      if(savedBudget){
+        return JSON.parse(savedBudget)
+      }
+      return 0;
+    });
+
+    useEffect(() => {
+      //save budget to local storage
+      localStorage.setItem("budget", JSON.stringify(budget))
+     
+    }, [budget]) // [budget] means: Only run this code when budget changes.
+    
 
     
     //expense is just a parameter
@@ -45,7 +61,7 @@ export function ExpenseProvider({children}){
 
   return (
     //Mount the board to wall and pin data as a children props
-    <ExpenseContext.Provider value={{expenses, addExpense, deleteExpense}}>
+    <ExpenseContext.Provider value={{expenses, addExpense, deleteExpense, budget, setBudget}}>
         {children} 
     </ExpenseContext.Provider>
   )
