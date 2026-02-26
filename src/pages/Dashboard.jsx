@@ -1,15 +1,10 @@
 import React from "react";
-import ExpenseForm from "../components/ExpenseForm";
-import ExpenseList from "../components/ExpenseList";
+
 import { useExpenses } from "../context/ExpenseContext";
 import { PieChart, Pie, Tooltip, Cell, Legend } from "recharts";
 import useExpenseStats from "../hooks/useExpenseStats";
 
-// import {FriendProvider} from "../practice/FriendContext"
-// import FriendList from "../practice/FriendList";
-// import FriendForm from '../practice/FriendForm'
 
-// import {useState} from "react";
 
 const Dashboard = () => {
   const { expenses, budget, setBudget } = useExpenses();
@@ -53,14 +48,6 @@ const Dashboard = () => {
         </PieChart>
       )}
 
-      <ExpenseForm />
-      <ExpenseList />
-
-      {/* <FriendProvider>
-  <FriendForm />
-  <FriendList />
-
-  </FriendProvider> */}
     </>
   );
 };
