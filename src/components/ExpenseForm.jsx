@@ -37,27 +37,29 @@ const navigate = useNavigate();
 
   //updating as per the user input for title to setForm
   const handleChange = (e) => {
-    console.log(e);
+   
     return setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>Add Expense</h2>
+    <div className="px-4 py-4 rounded-md text-base mb-4" >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <h2 className="text-2xl font-bold mb-4">Add Expense</h2>
         <input
           type='text'
           name='title'
           value={form.title}
           placeholder='Spending on...'
           onChange={handleChange}
+          className="border rounded p-2 w-full "
         ></input>
         <select
           name='category'
           value={form.category}
           placeholder='category'
           onChange={handleChange}
+          className="border rounded p-2 w-full"
         >
           <option>Food</option>
           <option>Transport</option>
@@ -70,6 +72,7 @@ const navigate = useNavigate();
           value={form.amount}
           placeholder='amount'
           onChange={handleChange}
+          className="border rounded p-2 w-full"
         ></input>
         <input
           type='date'
@@ -77,15 +80,18 @@ const navigate = useNavigate();
           value={form.date}
           placeholder='date'
           onChange={handleChange}
+          className="border rounded p-2 w-full"
         ></input>
-        <p>
+        {/* <p>
           {" "}
           Live onChange:{" "}
           {[
             `${form.title} ,$: ${form.amount}, ${form.category}, ${form.date}`
           ]}{" "}
-        </p>
-        <button type='submit'>Add</button>
+        </p> */}
+        <div className="flex justify-center ">
+        <button type='submit' className="px-4 py-2 bg-sky-500 hover:bg-sky-700 rounded cursor-pointer"> ➕ </button>
+       </div>
       </form>
     </div>
   );

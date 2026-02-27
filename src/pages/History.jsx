@@ -7,9 +7,9 @@ import {useExpenses} from "../context/ExpenseContext";
 const History = () => {
   const {expenses} = useExpenses();
   return (
-    <div>
+    <div >
       <ExpenseList/>
-      <button onClick={() => exportCSV(expenses)}>Export</button>
+      <button className='text-blue border border-blue-200 rounded-lg' onClick={() => exportCSV(expenses)}>Export</button>
     </div>
   )
 }

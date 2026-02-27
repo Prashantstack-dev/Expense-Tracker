@@ -1,4 +1,5 @@
 /* index.css */
+@import 'tailwindcss';
 
 * {
   box-sizing: border-box;
