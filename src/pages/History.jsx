@@ -7,9 +7,17 @@ import {useExpenses} from "../context/ExpenseContext";
 const History = () => {
   const {expenses} = useExpenses();
   return (
-    <div >
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Transaction History</h2>
+        <button 
+          className='bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 shadow-lg shadow-slate-200 active:scale-95 transition-all cursor-pointer' 
+          onClick={() => exportCSV(expenses)}
+        >
+          Export CSV
+        </button>
+      </div>
       <ExpenseList/>
-      <button className='text-blue border border-blue-200 rounded-lg' onClick={() => exportCSV(expenses)}>Export</button>
     </div>
   )
 }

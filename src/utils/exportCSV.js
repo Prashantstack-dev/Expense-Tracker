@@ -1,11 +1,11 @@
 function exportToCSV(expenses){
     const headerRow= "title,amount,category,date";
     const headerList = expenses
-    .map( expense => `${expense.title},${expense.amount},${expense.category},${expense.date}`)
+    .map( expense => `"${expense.title}",${expense.amount},"${expense.category}","${expense.date}"`)
     .join('\n')
-    console.log(headerList);
-const combined = headerRow + "\n" + headerList;
-console.log(combined);
+    // console.log(headerList);
+const combined = `${headerRow} \n ${headerList}`;
+// console.log(combined);
 
 const blob = new Blob([combined], {type: 'text/csv'});
 const url = URL.createObjectURL(blob);
