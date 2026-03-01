@@ -7,8 +7,9 @@ import { useExpenseStats } from "../hooks/useExpenseStats";
 
 const Dashboard = () => {
   const { user } = useUser();
-   const {budget,setBudget} = useExpenses();
+   const {expenses, budget,setBudget} = useExpenses();
    const {spent, remainingBudget, percentage, barColor} = useExpenseStats();
+   
    //
   return (
     <>
@@ -27,17 +28,18 @@ const Dashboard = () => {
         </SignedOut>
         {/* Show when signed in */}
         <SignedIn>
-          <h1>Welcome to ExpensePro Dashboard !</h1>
+          <h1>Welcome to ExpensePro Dashboard {user.fullName}!</h1>
           {/* Budget section */}
+
          <input type="number" className="border-4" placeholder="Budget" value={budget} onChange={(e) => setBudget(Number(e.target.value))}/>
-         <p>{spent}</p>
-         <p>{remainingBudget}</p>
+         <p>Spent: {spent}</p>
+         <p>Remaining budget: {remainingBudget}</p>
          <div className="w-full bg-gray-400 rounded h-4">
           
           <div className='h-4 rounded-lg shadow' style={{width: `${percentage}%`, backgroundColor: barColor}}></div>
-          </div>
+          </div>  
           {/* Chart */}
-          {<MyChartComponent />}
+          {expenses.length > 0 &&  <MyChartComponent />}
         </SignedIn>
       </div>
     </>
