@@ -2,12 +2,26 @@ import React from 'react'
 import "../App.css"
 import {useTheme} from "../practice/ThemeContext";
 import { NavLink } from 'react-router-dom';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react'
+
+
 
 const Navbar = () => {
   const {theme, toogleTheme} = useTheme();
   return (
     <div>
-      <nav className="flex justify-center space-x-6 bg-blue-500 text-white">
+      <nav className="flex justify-center space-x-6 bg-blue-500 text-white gap-4">
+         
+        {/* Show the sign-in and sign-up buttons when the user is signed out */}
+        <SignedOut>
+          <SignInButton />
+          <SignUpButton />
+        </SignedOut>
+        {/* Show the user button when the user is signed in */}
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+     
       <ul className= "flex gap-5 list-none">
        {/* className={({ isActive, isPending }) =>
     isPending ? "pending" : isActive ? "active" : ""

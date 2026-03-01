@@ -1,55 +1,46 @@
-import React from "react";
-
+import { Link } from "react-router-dom";
+import { useUser, SignedOut, SignedIn } from "@clerk/clerk-react";
+//import custom hooked component
+import { MyChartComponent } from "../components/MyChartComponent";
 import { useExpenses } from "../context/ExpenseContext";
-import { PieChart, Pie, Tooltip, Cell, Legend } from "recharts";
-import useExpenseStats from "../hooks/useExpenseStats";
-
-
+import { useExpenseStats } from "../hooks/useExpenseStats";
 
 const Dashboard = () => {
-  const { expenses, budget, setBudget } = useExpenses();
-  const { spent, remainingBudget, percentage, barColor, charData, COLORS } = useExpenseStats();
+  const { user } = useUser();
+   const {budget,setBudget} = useExpenses();
+   const {spent, remainingBudget, percentage, barColor} = useExpenseStats();
+   //
   return (
     <>
-      <h1 style={{ padding: "10px 20px 30px 50px" }}>
-        Welcome To Expense Tracker Dashboard
-      </h1>
-      {/* <p>{JSON.stringify(charData)}</p> */}
-      {/* Show chart only when there are expenses */}
-
-      {/* UI for Budget */}
-      <input type="number" value={budget} onChange={(e) => setBudget(Number(e.target.value))} />
-      <span>Spent: {spent}</span>
-      <p>Remaining: {remainingBudget}</p>
-      <div className="outer" style={{width:'100%', background:'grey'}}>
-
-        <div className="inner" style={{width:`${percentage}%`, height:'5vh', backgroundColor:`${barColor}`}}>
-
-        </div>
-      </div>
-
-      {/* UI for PieChart */}
-      {expenses.length > 0 && (
-        <PieChart width={300} height={300}>
-          <Pie
-            data={charData}
-            dataKey='value'
-            nameKey='name'
-            cx='50%'
-            cy='50%'
-            outerRadius={100}
+      <div className='flex flex-col items-center justify-center min-h-[calc(100vh-7rem)]'>
+        {/* Show for user not signed in */}
+        <SignedOut>
+          <h1 className='font-bold text-xl'>
+            Welcome To TrackSpend Pro Dashboard
+          </h1>
+          <Link
+            to='/login'
+            className='mt-6 px-6 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-300 '
           >
-            {charData.map((entry, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      )}
-
+            Get Started
+          </Link>
+        </SignedOut>
+        {/* Show when signed in */}
+        <SignedIn>
+          <h1>Welcome to ExpensePro Dashboard !</h1>
+          {/* Budget section */}
+         <input type="number" className="border-4" placeholder="Budget" value={budget} onChange={(e) => setBudget(Number(e.target.value))}/>
+         <p>{spent}</p>
+         <p>{remainingBudget}</p>
+         <div className="w-full bg-gray-400 rounded h-4">
+          
+          <div className='h-4 rounded-lg shadow' style={{width: `${percentage}%`, backgroundColor: barColor}}></div>
+          </div>
+          {/* Chart */}
+          {<MyChartComponent />}
+        </SignedIn>
+      </div>
     </>
   );
 };
-
 export default Dashboard;

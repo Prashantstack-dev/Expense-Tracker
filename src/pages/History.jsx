@@ -1,6 +1,5 @@
 // this will hold the ExpenseList
 import ExpenseList from "../components/ExpenseList";
-import React from 'react'
 import exportCSV from "../utils/exportCSV";
 import {useExpenses} from "../context/ExpenseContext";
 

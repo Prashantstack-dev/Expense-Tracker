@@ -1,6 +1,7 @@
 import { useExpenses } from "../context/ExpenseContext";
 
-const useExpenseStats = () => {
+
+export const useExpenseStats = () => {
     const {expenses, budget} = useExpenses();
 
     const spent = expenses.reduce((acc, expense) => {
@@ -18,7 +19,7 @@ const useExpenseStats = () => {
 
    //transform expenses array into chart data
   const COLORS = ["#6366f1", "#f59e0b", "#10b981", "#ef4444", "#3b82f6"];
-  const charData = expenses.reduce((acc, expense) => {
+  const chartData = expenses.reduce((acc, expense) => {
     //Does my sheet already have a row for this category?"
     const existing = acc.find((item) => item.name === expense.category);
     if (!existing) {
@@ -35,10 +36,10 @@ const useExpenseStats = () => {
         remainingBudget,
         percentage,
         barColor,
-        charData,
+        chartData,
         COLORS
     }
   )
 }
 
-export default useExpenseStats
+

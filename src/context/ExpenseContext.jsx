@@ -58,10 +58,21 @@ export function ExpenseProvider({children}){
      const filter = expenses.filter((item)=> id !== item.id);
      setExpenses(filter);
     }
+    //For Login
+    const[user, setUser] = useState(null);
 
+    const signIn = (userData)=> {
+//handle sign-in
+setUser(userData);
+    }
+
+    const signOut = (userData)=> {
+//handle sign-out by removing the data or token
+setUser(null);
+    }
   return (
     //Mount the board to wall and pin data as a children props
-    <ExpenseContext.Provider value={{expenses, addExpense, deleteExpense, budget, setBudget}}>
+    <ExpenseContext.Provider value={{expenses, addExpense, deleteExpense, budget, setBudget, signIn, signOut}}>
         {children} 
     </ExpenseContext.Provider>
   )
