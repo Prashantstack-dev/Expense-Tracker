@@ -28,7 +28,7 @@ const Dashboard = () => {
         </SignedOut>
         {/* Show when signed in */}
         <SignedIn>
-          <h1>Welcome to ExpensePro Dashboard {user.fullName}!</h1>
+          <h1>Welcome to ExpensePro Dashboard {user?.fullName}!</h1>
           {/* Budget section */}
 
          <input type="number" className="border-4" placeholder="Budget" value={budget} onChange={(e) => setBudget(Number(e.target.value))}/>
