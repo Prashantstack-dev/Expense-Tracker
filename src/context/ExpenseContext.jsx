@@ -1,83 +1,133 @@
-import React from 'react'
-import {createContext, useState, useContext, useEffect} from 'react'
+import React from "react";
+import { createContext, useState, useContext, useEffect } from "react";
+import supabase from "../utils/supabaseClient";
+import { useAuth } from "@clerk/clerk-react"
 
-
-
-const ExpenseContext = createContext();  //create a board
+const ExpenseContext = createContext(); //create a board
 
 // createContext() → creates the board
 // ExpenseProvider → mounts it on the wall
 // value={{ expenses }} → pins the data so any component can read it
 // {children} → renders whatever is wrapped inside the Provider
 
+export function ExpenseProvider({ children }) {
+  const [expenses, setExpenses] = useState([]);
+  // ()=> {
+  //localStorage
+  //  const storedData = localStorage.getItem('expenses');
+  //  if(storedData) return JSON.parse(storedData)
+  //   else return [];
+  //Supabasedatabase
+  // const{data, error} = await supabase
+  // .from('expenses')
+  // .select(`
+  //   id,
+  //   title,
+  //   amount,
+  //   category,
+  //   user_id,
+  //   date
+  //   `)
+  // });
+  //Call useAuth() and destructure userId from returned object
+  const {userId} = useAuth();
 
-export function ExpenseProvider({children}){
+  async function fetchExpenses() {
+    if(!userId) return;
 
-    const [expenses, setExpenses] = useState(()=> {
-     const storedData = localStorage.getItem('expenses');
-     if(storedData) return JSON.parse(storedData)
-      else return [];
-    });
-    
-    useEffect(() => {
-      //save expenses to local storage here
-       localStorage.setItem("expenses", JSON.stringify(expenses))
-  
-    }, [expenses])
-
-    const[budget, setBudget] = useState(()=> {
-      const savedBudget = localStorage.getItem('budget');
-      //if value is found parse it(localStorage uses string) and use it
-      if(savedBudget){
-        return JSON.parse(savedBudget)
+    const { data, error } = await supabase
+      .from("Expenses") //Name of database table
+      .select('*') //select all column
+      .eq('user_id', userId) //eq()filter to only get current user's expenses
+      if(error){
+        console.error("Error fetching data:", error)
+      } else {
+        console.log("Data:", data)
+        setExpenses(data);
       }
-      return 0;
-    });
+  }
+  
+  
+  useEffect(()=> {
+    fetchExpenses();
+  },[userId]);
 
-    useEffect(() => {
-      //save budget to local storage
-      localStorage.setItem("budget", JSON.stringify(budget))
-     
-    }, [budget]) // [budget] means: Only run this code when budget changes.
-    
+  // useEffect(() => {
+  //   //save expenses to local storage here
+  //   localStorage.setItem("expenses", JSON.stringify(expenses));
+  // }, [expenses]);
 
-    
-    //expense is just a parameter
-    function addExpense(expense){
-        setExpenses([
-          ...expenses,  //copy old array
-           {            //add one new object
-            ...expense, //copy expense object
-           amount: parseFloat(expense.amount), //override amount
-           id:Date.now()  //add id
-          }
-        ]);
+  const [budget, setBudget] = useState(() => {
+    const savedBudget = localStorage.getItem("budget");
+    //if value is found parse it(localStorage uses string) and use it
+    if (savedBudget) {
+      return JSON.parse(savedBudget);
     }
-    
-    function deleteExpense(id){
-     const filter = expenses.filter((item)=> id !== item.id);
-     setExpenses(filter);
-    }
-    //For Login
-    const[user, setUser] = useState(null);
+    return 0;
+  });
 
-    const signIn = (userData)=> {
-//handle sign-in
-setUser(userData);
-    }
+  useEffect(() => {
+    //save budget to local storage
+    localStorage.setItem("budget", JSON.stringify(budget));
+  }, [budget]); // [budget] means: Only run this code when budget changes.
 
-    const signOut = (userData)=> {
-//handle sign-out by removing the data or token
-setUser(null);
-    }
+  //expense is just a parameter
+  async function addExpense(expense) {
+     const { data, error } = await supabase
+      .from("Expenses") //Name of database table
+      .insert({...expense, user_id: userId})
+     if(error){
+        console.error("Error fetching data:", error)
+      } else {
+        console.log("Data:", data)
+        fetchExpenses();
+      }
+  }
+  
+
+  async function deleteExpense(id) {
+    const {data, error} = await supabase
+    .from('Expenses') //Name of database table on supabase
+    .delete()
+    .eq('id',id ) //Filter:Delete where id equals to idToDelete
+    if(error){
+        console.error("Error fetching data:", error)
+      } else {
+        console.log("Data:", data)
+        fetchExpenses();
+      }
+   
+  }
+  //For Login
+  const [user, setUser] = useState(null);
+
+  const signIn = (userData) => {
+    //handle sign-in
+    setUser(userData);
+  };
+
+  const signOut = (userData) => {
+    //handle sign-out by removing the data or token
+    setUser(null);
+  };
   return (
     //Mount the board to wall and pin data as a children props
-    <ExpenseContext.Provider value={{expenses, addExpense, deleteExpense, budget, setBudget, signIn, signOut}}>
-        {children} 
+    <ExpenseContext.Provider
+      value={{
+        expenses,
+        addExpense,
+        deleteExpense,
+        budget,
+        setBudget,
+        signIn,
+        signOut
+      }}
+    >
+      {children}
     </ExpenseContext.Provider>
-  )
+  );
 }
 
-export function useExpenses(){
-return useContext(ExpenseContext);
+export function useExpenses() {
+  return useContext(ExpenseContext);
 }
