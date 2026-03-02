@@ -12,23 +12,7 @@ const ExpenseContext = createContext(); //create a board
 
 export function ExpenseProvider({ children }) {
   const [expenses, setExpenses] = useState([]);
-  // ()=> {
-  //localStorage
-  //  const storedData = localStorage.getItem('expenses');
-  //  if(storedData) return JSON.parse(storedData)
-  //   else return [];
-  //Supabasedatabase
-  // const{data, error} = await supabase
-  // .from('expenses')
-  // .select(`
-  //   id,
-  //   title,
-  //   amount,
-  //   category,
-  //   user_id,
-  //   date
-  //   `)
-  // });
+ 
   //Call useAuth() and destructure userId from returned object
   const {userId} = useAuth();
 
@@ -51,11 +35,6 @@ export function ExpenseProvider({ children }) {
   useEffect(()=> {
     fetchExpenses();
   },[userId]);
-
-  // useEffect(() => {
-  //   //save expenses to local storage here
-  //   localStorage.setItem("expenses", JSON.stringify(expenses));
-  // }, [expenses]);
 
   const [budget, setBudget] = useState(() => {
     const savedBudget = localStorage.getItem("budget");
