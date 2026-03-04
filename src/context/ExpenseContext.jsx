@@ -106,7 +106,7 @@ export function ExpenseProvider({ children }) {
     </ExpenseContext.Provider>
   );
 }
-
+// useExpenses() a tiny helper function so you don’t need to rewrite that every time
 export function useExpenses() {
   return useContext(ExpenseContext);
 }
