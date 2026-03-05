@@ -4,11 +4,22 @@ import { useUser, SignedOut, SignedIn } from "@clerk/clerk-react";
 import { MyChartComponent } from "../components/MyChartComponent";
 import { useExpenses } from "../context/ExpenseContext";
 import { useExpenseStats } from "../hooks/useExpenseStats";
+import getInsights from "../utils/geminiClient.js";
+import {useState} from "react";
 
 const Dashboard = () => {
   const { user } = useUser();
    const {expenses, budget,setBudget} = useExpenses();
    const {spent, remainingBudget, percentage, barColor} = useExpenseStats();
+
+   //API calls
+   const [insights, setInsights] = useState();
+
+   async function handleOnClickInsights(){
+    const response = await getInsights(expenses);
+    // const parse = JSON.parse(response);
+    setInsights(response);
+   }
    
    //
   return (
@@ -37,7 +48,16 @@ const Dashboard = () => {
          <div className="w-full bg-gray-400 rounded h-4">
           
           <div className='h-4 rounded-lg shadow' style={{width: `${percentage}%`, backgroundColor: barColor}}></div>
-          </div>  
+          </div> 
+          <button className="'h-6 rounded-lg shadow bg-amber-300" onClick={() => handleOnClickInsights()}>Insights</button>
+          <ul>
+            {/* rendering ai insights as tips */}
+            {insights && insights.tips.map((insight,i)=> <li key={i}>{insight}</li>)}
+            
+            {/* rendering ai anomalies */}
+
+            {insights && insights.anomalies.map((anomaly,i) => <li key={i}>{anomaly}</li> )}
+            </ul> 
           {/* Chart */}
           {expenses.length > 0 &&  <MyChartComponent />}
         </SignedIn>

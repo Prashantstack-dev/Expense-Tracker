@@ -5,12 +5,6 @@ const ExpenseAccordian = () => {
     const{expenses} = useExpenses();
     
     const [isOpenCategory, setIsOpenCategory] = useState(false);
-    function handleClick(){
-        console.log("Clicked", category)
-        setIsOpenCategory(!isOpenCategory);
-        
-
-    }
    
    const groupedCategory = expenses.reduce((acc, current)=> {
    const key = current.category;

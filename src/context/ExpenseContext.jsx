@@ -42,7 +42,7 @@ export function ExpenseProvider({ children }) {
     if (savedBudget) {
       return JSON.parse(savedBudget);
     }
-    return 0;
+    return 0; //false
   });
 
   useEffect(() => {
