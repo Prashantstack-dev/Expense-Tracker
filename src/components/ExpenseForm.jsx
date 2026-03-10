@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useExpenses } from "../context/ExpenseContext.jsx";
 import {useNavigate} from "react-router-dom";

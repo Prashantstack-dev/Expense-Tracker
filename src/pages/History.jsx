@@ -3,6 +3,7 @@ import ExpenseList from "../components/ExpenseList";
 import exportCSV from "../utils/exportCSV";
 import {useExpenses} from "../context/ExpenseContext";
 import ExpenseAccordian from "../components/ExpenseAccordian";
+import NoteList from "../components/NoteList";
 
 const History = () => {
   const {expenses} = useExpenses();
@@ -18,6 +19,7 @@ const History = () => {
         </button>
       </div>
       <ExpenseList/>
+      <NoteList/>
       <ExpenseAccordian />
     </div>
   )

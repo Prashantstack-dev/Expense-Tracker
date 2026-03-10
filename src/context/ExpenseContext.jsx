@@ -1,4 +1,3 @@
-import React from "react";
 import { createContext, useState, useContext, useEffect } from "react";
 import supabase from "../utils/supabaseClient";
 import { useAuth } from "@clerk/clerk-react"
@@ -89,6 +88,7 @@ export function ExpenseProvider({ children }) {
     //handle sign-out by removing the data or token
     setUser(null);
   };
+
   return (
     //Mount the board to wall and pin data as a children props
     <ExpenseContext.Provider

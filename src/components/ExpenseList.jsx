@@ -1,12 +1,15 @@
-import React from 'react'
-import {useExpenses} from "../context/ExpenseContext"
+import {useExpenses} from "../context/ExpenseContext";
+import NoteForm from "./NoteForm";
+import {useState} from "react"
 
 const ExpenseList = () => {
     const {expenses, deleteExpense} = useExpenses();
+    const [isOpen, setIsOpen] = useState(null);
   return (
     <ul className="space-y-4">
      {expenses.map((item, index)=> {
-       return <li className="flex flex-row justify-between items-center bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl border border-white/40 p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1" key={index}>
+      console.log("isOpen:", isOpen, "item.id:", item.id)
+       return <li className="flex flex-row flex-wrap justify-between items-center bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl border border-white/40 p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1" key={index}>
          
          <h1 className='font-bold text-slate-800 text-lg tracking-tight'> {`${item.title}`} </h1>
          
@@ -18,6 +21,10 @@ const ExpenseList = () => {
          
          <button className="text-red-500 font-bold text-xs hover:text-red-700 hover:bg-red-50 px-4 py-2 rounded-xl transition-colors duration-200 cursor-pointer" onClick={() => {deleteExpense(item.id)} }>
            DELETE
+         </button >
+           {isOpen === item.id  &&  <NoteForm expenseId={item.id}/>} 
+         <button className="text-red-500 font-bold text-xs hover:text-red-700 hover:bg-red-50 px-4 py-2 rounded-xl transition-colors duration-200 cursor-pointer" onClick={()=> setIsOpen(item.id)} >
+         Add📝Note
          </button>
       </li>
      })}

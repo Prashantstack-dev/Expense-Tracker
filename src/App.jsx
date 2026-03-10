@@ -9,6 +9,7 @@ import Footer from "./pages/Footer.jsx";
 
 
 import { ExpenseProvider } from "./context/ExpenseContext.jsx";
+import {NoteProvider} from "./context/NoteContext.jsx";
 
 import { ThemeProvider, useTheme } from "./practice/ThemeContext.jsx";
 import { Routes, Route } from "react-router-dom";
@@ -54,7 +55,9 @@ function App() {
       {/* ExpenseProvider is a custom hook made using createContext */}
       <ExpenseProvider>
         <ThemeProvider>
+          <NoteProvider>
           <AppContent />
+          </NoteProvider>
         </ThemeProvider>
       </ExpenseProvider>
     </div>
