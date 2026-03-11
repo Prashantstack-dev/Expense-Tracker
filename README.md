@@ -196,7 +196,7 @@ Requires .env.local with VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_CLERK_P
 📌 What's Next
 
 
-Second project — AI SaaS micro-tool
 Filter expenses by category and date range
 Income section with 50/30/20 rule breakdown
 Receipt scanning / OCR
+Second project — AI SaaS micro-tool
