@@ -149,6 +149,10 @@ Problem: 429 Too Many Requests after several clicks
 Cause: Gemini free tier has a limit of 20 requests per day per model
 Fix: Switched to a model with a higher free quota; added error handling
 
+21. ## Session 3 — NoteApp Feature
+Built a note system linked to expenses. Each expense in the History page has an "Add Note" button that opens an inline form with a title and personal/business tag. Notes are saved to a Supabase Notes table and filtered per user.
+** Functions built: fetchNotes, addNotes, deleteNotes in NoteContext — same Supabase pattern as expenses.
+Bug hit: RLS policy on Notes table blocked inserts with a 401 error. Temporarily disabled RLS to unblock development. ** TODO: properly integrate Clerk + Supabase JWT auth before production deploy.
 
 📁 Folder Structure
 src/
@@ -191,7 +195,7 @@ Requires .env.local with VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_CLERK_P
 
 📌 What's Next
 
-AI NoteApp challenge
+
 Second project — AI SaaS micro-tool
 Filter expenses by category and date range
 Income section with 50/30/20 rule breakdown

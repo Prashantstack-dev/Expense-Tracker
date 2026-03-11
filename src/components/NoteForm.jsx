@@ -1,7 +1,7 @@
 //NoteForm is UI component
 
 import { useNotes } from "../context/NoteContext.jsx";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 
 
@@ -11,13 +11,13 @@ const NoteForm = ({expenseId}) => {
     tag: ""
   });
 
-  const { addNote } = useNotes();
+  const { addNotes } = useNotes();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // sending the context to the form through custom hooks
     console.log(noteForm)
-    addNote({ ...noteForm, id: Date.now(), expense_id:expenseId });
+    addNotes({ ...noteForm, id: Date.now(), expense_id:expenseId });
 
     setNoteForm({
       title: "",

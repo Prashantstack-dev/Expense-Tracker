@@ -31,9 +31,6 @@ export function ExpenseProvider({ children }) {
   }
   
   
-  useEffect(()=> {
-    fetchExpenses();
-  },[userId]);
 
   const [budget, setBudget] = useState(() => {
     const savedBudget = localStorage.getItem("budget");
@@ -53,7 +50,7 @@ export function ExpenseProvider({ children }) {
   async function addExpense(expense) {
      const { data, error } = await supabase
       .from("Expenses") //Name of database table
-      .insert({...expense, user_id: userId})
+      .insert({...expense, user_id: userId}) // spreads all the expense fields and adds user_id
      if(error){
         console.error("Error fetching data:", error)
       } else {
