@@ -1,6 +1,7 @@
 // this will hold the ExpenseList
 import ExpenseList from "../components/ExpenseList";
 import exportCSV from "../utils/exportCSV";
+import PDFgenerator from "../utils/generatePDF";
 import {useExpenses} from "../context/ExpenseContext";
 import ExpenseAccordian from "../components/ExpenseAccordian";
 import NoteList from "../components/NoteList";
@@ -16,6 +17,13 @@ const History = () => {
           onClick={() => exportCSV(expenses)}
         >
           Export CSV
+        </button>
+
+        <button 
+          className='bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 shadow-lg shadow-slate-200 active:scale-95 transition-all cursor-pointer' 
+          onClick={() => PDFgenerator(expenses)}
+        >
+          Export PDF
         </button>
       </div>
       <ExpenseList/>

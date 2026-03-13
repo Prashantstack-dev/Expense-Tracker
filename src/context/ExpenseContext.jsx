@@ -30,7 +30,9 @@ export function ExpenseProvider({ children }) {
       }
   }
   
-  
+  useEffect(()=> {
+     fetchExpenses();
+  }, [userId])
 
   const [budget, setBudget] = useState(() => {
     const savedBudget = localStorage.getItem("budget");
